@@ -1,3 +1,4 @@
+let a
 function generateMatrix(matLen, gr, grEat, allEat, predator, bomb) {
     let matrix = [];
     for (let i = 0; i < matLen; i++) {
