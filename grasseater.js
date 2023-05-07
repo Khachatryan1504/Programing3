@@ -1,20 +1,5 @@
-class GrassEater{
-    constructor(x,y){
-        this.x = x;
-        this.y = y;
-        this.energy = 5;
-        this.directions = [
-            [this.x - 1, this.y - 1],
-            [this.x    , this.y - 1],
-            [this.x + 1, this.y - 1],
-            [this.x - 1, this.y    ],
-            [this.x + 1, this.y    ],
-            [this.x - 1, this.y + 1],
-            [this.x    , this.y + 1],
-            [this.x + 1, this.y + 1]
-        ];    
-    }
-
+class GrassEater extends Parent{
+    
     getNewCoordinates(){
         this.directions = [
             [this.x - 1, this.y - 1],
@@ -28,19 +13,9 @@ class GrassEater{
         ];    
     }
 
-    chooseCell(character){
-        let found = [];
+    chooseCell(character) {
         this.getNewCoordinates();
-        for(let i = 0;i < this.directions.length;i++){
-            let x = this.directions[i][0];
-            let y = this.directions[i][1];
-            if(x >= 0 && y >= 0 && x<matrix[0].length && y<matrix.length){
-                if(matrix[y][x]  == character){
-                    found.push(this.directions[i])
-                }
-            }
-        }
-        return found;
+        return super.chooseCell(character);
     }
 
 
