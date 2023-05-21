@@ -1,4 +1,6 @@
-class AllEater extends Parent {
+let Parent = require('./parent')
+
+module.exports = class AllEater extends Parent {
     getNewCoordinates(){
         this.directions = [
             [this.x - 1, this.y - 1],
@@ -32,7 +34,7 @@ class AllEater extends Parent {
 
     eat(){
         let found = this.chooseCell(1,2);
-        let emptyCell = random(found);
+        let emptyCell = this.random(found);
         if(emptyCell){
             this.energy+=1;
             let NewX = emptyCell[0];
@@ -66,7 +68,7 @@ class AllEater extends Parent {
 
     move(){
         let found = this.chooseCell(0, 0);
-        let emptyCell = random(found);
+        let emptyCell = this.random(found);
         if(emptyCell){
             this.energy--;
             let NewX = emptyCell[0];
@@ -89,7 +91,7 @@ class AllEater extends Parent {
 
     mul(){
         let found = this.chooseCell(0 ,0);
-        let emptyCell = random(found);
+        let emptyCell = this.random(found);
         if(emptyCell){
             let NewX = emptyCell[0];
             let NewY = emptyCell[1];

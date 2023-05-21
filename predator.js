@@ -1,4 +1,6 @@
-class Predator extends Parent{
+let Parent = require('./parent')
+
+module.exports = class Predator extends Parent{
     getNewCoordinates(){
         this.directions = [
             [this.x - 1, this.y - 1],
@@ -19,9 +21,9 @@ class Predator extends Parent{
  
     eat(){
         let found = this.chooseCell(2);
-        let emptyCell = random(found);
+        let emptyCell = this.random(found);
         if(emptyCell){
-            this.energy+=2;
+            this.energy++;
             let newX = emptyCell[0];
             let newY = emptyCell[1];
             matrix[newY][newX] = 4;
@@ -34,7 +36,7 @@ class Predator extends Parent{
                     break;
                 }
             }
-            if(this.energy > 12){
+            if(this.energy > 10){
                 this.mul();
             }
         }
@@ -44,7 +46,7 @@ class Predator extends Parent{
     }
     move(){
         let found = this.chooseCell(0);
-        let emptyCell = random(found);
+        let emptyCell = this.random(found);
         if(emptyCell){
             this.energy--;
             let newX = emptyCell[0];
@@ -66,20 +68,21 @@ class Predator extends Parent{
     }
     mul(){
         let found = this.chooseCell(0);
-        let emptyCell = random(found);
+        let emptyCell = this.random(found);
         if(emptyCell){
             let newX = emptyCell[0];
             let newY = emptyCell[1];
             matrix[newY][newX] = 2;
-            let grassEater = new GrassEater(newX,newY);
+            let predator = new Predator(newX,newY);
             this.energy = 10;
-            grassEaterArr.push(grassEater);
+            predatorArr.push(predator);
         }
     }
     
     die(){
         for(let i in predatorArr){
             if(predatorArr[i].x == this.x && predatorArr[i].y == this.y){
+                console.log("splice");
                 predatorArr.splice(i,1);
                 break;
             }

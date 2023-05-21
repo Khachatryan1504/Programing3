@@ -1,4 +1,6 @@
-class GrassEater extends Parent{
+let Parent = require('./parent')
+
+module.exports = class GrassEater extends Parent{
     
     getNewCoordinates(){
         this.directions = [
@@ -21,7 +23,7 @@ class GrassEater extends Parent{
 
     eat(){
         let found = this.chooseCell(1);
-        let emptyCell = random(found);
+        let emptyCell = this.random(found);
         if(emptyCell){
             this.energy+=2;
             let newX = emptyCell[0];
@@ -47,7 +49,7 @@ class GrassEater extends Parent{
 
     move(){
         let found = this.chooseCell(0);
-        let emptyCell = random(found);
+        let emptyCell = this.random(found);
         if(emptyCell){
             this.energy--;
             let newX = emptyCell[0];
@@ -70,7 +72,7 @@ class GrassEater extends Parent{
 
     mul(){
         let found = this.chooseCell(0);
-        let emptyCell = random(found);
+        let emptyCell = this.random(found);
         if(emptyCell){
             let newX = emptyCell[0];
             let newY = emptyCell[1];

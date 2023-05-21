@@ -1,8 +1,10 @@
-class Grass extends Parent{
+let Parent = require('./parent')
+
+module.exports = class Grass extends Parent{
     mul(){
         this.multiply++;
         let emptyCells = this.chooseCell();
-        let oneCell = random(emptyCells);
+        let oneCell = this.random(emptyCells);
 
         if(oneCell && this.multiply==5){
             let x = oneCell[0];

@@ -1,23 +1,8 @@
-class Bomb {
-    constructor(x, y) {
-        this.x = x;
-        this.y = y;
-        this.energy = 5;
-        this.directions = [
-            [this.x - 1, this.y - 1],
-            [this.x, this.y - 1],
-            [this.x + 1, this.y - 1],
-            [this.x - 1, this.y],
-            [this.x + 1, this.y],
-            [this.x - 1, this.y + 1],
-            [this.x, this.y + 1],
-            [this.x + 1, this.y + 1]
-        ];
-    }
+let Parent = require('./parent')
 
-
+module.exports = class Bomb extends Parent{
     explode() {
-        console.log(this.energy);
+        // console.log(this.energy);
 
         if (this.energy == 0) {
             this.die()
