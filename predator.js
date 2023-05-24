@@ -36,7 +36,7 @@ module.exports = class Predator extends Parent{
                     break;
                 }
             }
-            if(this.energy > 10){
+            if(this.energy > 16){
                 this.mul();
             }
         }

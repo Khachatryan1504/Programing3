@@ -14,7 +14,7 @@ module.exports = class AllEater extends Parent {
         ];    
     }
 
-    chooseCell(character, character1){
+    chooseCell(character, character1,character2){
         let found = [];
         this.getNewCoordinates();
         for(let i = 0;i < this.directions.length;i++){
@@ -27,13 +27,16 @@ module.exports = class AllEater extends Parent {
                 else if(matrix[y][x]  == character1){
                     found.push(this.directions[i])
                 }
+                else if(matrix[y][x]  == character2){
+                    found.push(this.directions[i])
+                }
             }
         }
         return found;
     }
 
     eat(){
-        let found = this.chooseCell(1,2);
+        let found = this.chooseCell(1,2,4);
         let emptyCell = this.random(found);
         if(emptyCell){
             this.energy+=1;
