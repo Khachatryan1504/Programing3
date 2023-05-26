@@ -77,12 +77,12 @@ function createMatrix() {
 
    }
 
-   generateMatrix(10, 100, 0, 0, 0, 0);
+   generateMatrix(50, 1500, 50, 0, 0, 5);
 
 
    for (let y = 0; y < matrix.length; y++) {
       for (let x = 0; x < matrix[y].length; x++) {
-         if (matrix[y][x] === 1) {
+         if (matrix[y][x] == 1) {
             let grass = new Grass(x, y);
             grassArr.push(grass);
          }
@@ -112,7 +112,6 @@ function playGame() {
    for (let i = 0; i < grassArr.length; i++) {
       let counter = 0
       counter++
-      console.log(counter);
       grassArr[i].mul();
   }
 
@@ -146,66 +145,67 @@ function playGame() {
 
 createMatrix()
 
-setInterval(playGame, 500);
+setInterval(playGame, 300);
 
 
 
 function lightning(){
    
-
    let minX = Math.floor(Math.random() * matrix[0].length);
-   let minY = Math.floor(Math.random() * matrix[0].length)
+   let minY = Math.floor(Math.random() * matrix.length)
    let maxX = Math.floor(Math.random() * matrix[0].length);
-   let maxY = Math.floor(Math.random() * matrix[0].length)
-   for(let x = minX;x < maxX;x++){
-      for(let y = minY;y < maxY;y++){
-         matrix[x][y] = 0
-
-         if (matrix[y][x] == 1) {
+   let maxY = Math.floor(Math.random() * matrix.length)
+   for(let y = minY;y < maxY;y++){
+      for(let x = minX;x < maxX;x++){
+         if (matrix[x][y] == 1) {
             for (let i in grassArr) {
                if (x == grassArr[i].x && y == grassArr[i].y) {
-                  console.log("fdhgskh");
                   grassArr.splice(i, 1);
-                   break;
+                  matrix[x][y] = 0
+                  break;
                }
-           }
+            }
             
          }
-
+         
          else if(matrix[y][x] == 2){
             for (let i in grassEaterArr) {
                if (x == grassEaterArr[i].x && y == grassEaterArr[i].y) {
-                   grassEaterArr.splice(i, 1);
-                   break;
+                  grassEaterArr.splice(i, 1);
+                  matrix[y][x] = 0
+                  break;
                }
-           }
+            }
          }
          else if(matrix[y][x] == 3){
             for (let i in allEaterArr) {
                if (x == allEaterArr[i].x && y == allEaterArr[i].y) {
                   allEaterArr.splice(i, 1);
-                   break;
+                  matrix[y][x] = 0
+                  break;
                }
-           }
+            }
             
          } 
          else if(matrix[y][x] == 4){
             for (let i in predatorArr) {
                if (x == predatorArr[i].x && y == predatorArr[i].y) {
                   predatorArr.splice(i, 1);
-                   break;
+                  matrix[y][x] = 0
+                  break;
                }
-           }
+            }
             
+         
          } 
       }
-      return matrix
+      // return matrix
    }
-
-
-
-
-
+   
+   
+   
+   
+   
 
 
 

@@ -30,8 +30,8 @@ module.exports = class Predator extends Parent{
             matrix[this.y][this.x] = 0;
             this.x = newX;
             this.y = newY;
-            for(let i in grassArr){
-                if(newX == grassArr[i].x && newY == grassArr[i].y){
+            for(let i in grassEaterArr){
+                if(newX == grassEaterArr[i].x && newY == grassEaterArr[i].y){
                     grassEaterArr.splice(i,1);
                     break;
                 }
@@ -74,7 +74,7 @@ module.exports = class Predator extends Parent{
             let newY = emptyCell[1];
             matrix[newY][newX] = 2;
             let predator = new Predator(newX,newY);
-            this.energy = 10;
+            this.energy = 5;
             predatorArr.push(predator);
         }
     }
@@ -82,7 +82,6 @@ module.exports = class Predator extends Parent{
     die(){
         for(let i in predatorArr){
             if(predatorArr[i].x == this.x && predatorArr[i].y == this.y){
-                console.log("splice");
                 predatorArr.splice(i,1);
                 break;
             }

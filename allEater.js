@@ -58,7 +58,12 @@ module.exports = class AllEater extends Parent {
                     break;
                 }
             }
-            
+            for(let i in predatorArr){
+                if(NewX == predatorArr[i].x && NewY == predatorArr[i].y){
+                    predatorArr.splice(i,1);
+                    break;
+                }
+            }
             if(this.energy > 16){
                 this.mul();
             }

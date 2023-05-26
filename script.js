@@ -2,7 +2,7 @@ let socket = io();
 let side = 50;
 
 function setup() {
-    createCanvas(side * 10 , side * 10 );
+    createCanvas(side * 50 , side * 50 );
     background("grey")
 }
 let colors = {

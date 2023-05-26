@@ -1,7 +1,6 @@
 let Parent = require('./parent')
 
 module.exports = class GrassEater extends Parent{
-    
     getNewCoordinates(){
         this.directions = [
             [this.x - 1, this.y - 1],
@@ -34,6 +33,7 @@ module.exports = class GrassEater extends Parent{
             this.y = newY;
             for(let i in grassArr){
                 if(newX == grassArr[i].x && newY == grassArr[i].y){
+                    console.log("grasseater eat an grass");
                     grassArr.splice(i,1);
                     break;
                 }
