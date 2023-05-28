@@ -9,7 +9,7 @@ app.get('/', function (req, res) {
    res.redirect('index.html');
 });
 
-server.listen(3000,() => {
+server.listen(3001,() => {
    console.log("Server is started")
 });
 
@@ -77,7 +77,7 @@ function createMatrix() {
 
    }
 
-   generateMatrix(50, 1500, 50, 0, 0, 5);
+   generateMatrix(40, 930, 50, 90, 90, 15);
 
 
    for (let y = 0; y < matrix.length; y++) {
@@ -139,29 +139,40 @@ function playGame() {
    io.emit('statistic', characterNumber)
    io.emit('matrix', matrix)
    
-   
    return matrix
 }
 
 createMatrix()
 
-setInterval(playGame, 300);
+
+
+
+let time = 500
+let intervalChange = setInterval(playGame, time);
+
+
+
+
+function slower(){
+   time = 1000
+   clearInterval(intervalChange)
+   intervalChange = setInterval(playGame, time);
+}
 
 
 
 function lightning(){
-   
    let minX = Math.floor(Math.random() * matrix[0].length);
-   let minY = Math.floor(Math.random() * matrix.length)
-   let maxX = Math.floor(Math.random() * matrix[0].length);
-   let maxY = Math.floor(Math.random() * matrix.length)
+   let minY = Math.floor(Math.random() * matrix.length);
+   let maxX = Math.floor(Math.random() * (matrix[0].length - minX) + minX + 1);
+   let maxY = Math.floor(Math.random() * (matrix.length - minY) + minY + 1);
    for(let y = minY;y < maxY;y++){
       for(let x = minX;x < maxX;x++){
          if (matrix[x][y] == 1) {
             for (let i in grassArr) {
                if (x == grassArr[i].x && y == grassArr[i].y) {
                   grassArr.splice(i, 1);
-                  matrix[x][y] = 0
+                  matrix[y][x] = 0
                   break;
                }
             }
@@ -196,91 +207,20 @@ function lightning(){
                }
             }
             
-         
+            
          } 
       }
       // return matrix
    }
-   
-   
-   
-   
-   
-
-
-
-
-
-
-
-
-
-
-
-//    lightningArea = [
-//       [x, y],
-//       [x - 1, y - 1],
-//       [x    , y - 1],
-//       [x + 1, y - 1],
-//       [x - 1, y    ],
-//       [x + 1, y    ],
-//       [x - 1, y + 1],
-//       [x    , y + 1],
-//       [x + 1, y + 1]
-   
-      
-//    ];
-
-//    for (let i in lightningArea) {
-//       let newX = lightningArea[i][0];
-//       let newY = lightningArea[i][1];
-//       if (newX >= 0 && newY >= 0 && newX < matrix[0].length && newY < matrix.length) {
-//          if (matrix[newY][newX] == 1) {
-//             matrix[newY][newX] = 0;
-//             for (let i in grassArr) {
-//                if (newX == grassArr[i].x && newY == grassArr[i].y) {
-//                   grassArr.splice(i, 1);
-//                   break;
-//                }
-//             }
-//           }
-//           else if (matrix[newY][newX] == 2) {
-//             matrix[newY][newX] = 0;
-            //   for (let i in grassEaterArr) {
-            //       if (newX == grassEaterArr[i].x && newY == grassEaterArr[i].y) {
-            //           grassEaterArr.splice(i, 1);
-            //           break;
-            //       }
-            //   }
-//           }
-//           else if (matrix[newY][newX] == 3) {
-//             matrix[newY][newX] = 0;
-//               for (let i in allEaterArr) {
-//                   if (newX == allEaterArr[i].x && newY == allEaterArr[i].y) {
-//                       allEaterArr.splice(i, 1);
-//                       break;
-//                   }
-//               }
-//           }
-//           else if (matrix[newY][newX] == 4) {
-//             matrix[newY][newX] = 0;
-//             for (let i in predatorArr) {
-//                if (newX == predatorArr[i].x && newY == predatorArr[i].y) {
-//                   predatorArr.splice(i, 1);
-//                   break;
-//                }
-//             }
-//         }
-          
-//       }
-
-//   }
 }
+
 
 
 io.on('connection', function(socket) {
    socket.emit('matrix', matrix)
    socket.on('light', lightning)
+   socket.on("slow", slower)
+   socket.on("fast", faster)
 })
 
 
@@ -290,3 +230,10 @@ io.on('connection', function(socket) {
 
 
 
+
+function faster(){
+   time = 200
+   clearInterval(intervalChange)
+   intervalChange = setInterval(playGame, time);
+   console.log("barev");
+}

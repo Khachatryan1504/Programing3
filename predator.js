@@ -14,9 +14,18 @@ module.exports = class Predator extends Parent{
         ];    
     }
 
-    chooseCell(character) {
-        this.getNewCoordinates();
-        return super.chooseCell(character);
+    chooseCell(character){
+        let found = [];
+        for(let i = 0;i < this.directions.length;i++){
+            let x = this.directions[i][0];
+            let y = this.directions[i][1];
+            if(x >= 0 && y >= 0 && x<matrix[0].length && y<matrix.length){
+                if(matrix[y][x]  == character){
+                    found.push(this.directions[i])
+                }
+            }
+        }
+        return found;
     }
  
     eat(){

@@ -2,7 +2,7 @@ let socket = io();
 let side = 50;
 
 function setup() {
-    createCanvas(side * 50 , side * 50 );
+    createCanvas(side * 40 , side * 40);
     background("grey")
 }
 let colors = {
@@ -60,7 +60,7 @@ function drawMatrix(matrix) {
             }
             rect(x * side, y * side, side, side);
             fill('black');
-            text(x + ';' + y, x * side + 10, y * side + 20);
+            // text(x + ';' + y, x * side + 10, y * side + 20);
         }
     }
 }
@@ -91,5 +91,22 @@ lightButton.addEventListener("click", calllightning)
 function calllightning() {
     socket.emit("light")
 }
+
+
+
+function doslow() {
+    socket.emit("slow")
+}
+
+function dofast() {
+    socket.emit("fast")
+}
+
+let faster = document.getElementById("faster")
+faster.addEventListener("click", dofast)
+
+let slower = document.getElementById("slower")
+slower.addEventListener("click", doslow)
+
 
 
