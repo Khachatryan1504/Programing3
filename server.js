@@ -19,6 +19,7 @@ grassEaterArr = [];
 allEaterArr = [];
 predatorArr = [];
 bombArr = [];
+walkerArr = []
 
 
 let Grass = require('./grass')
@@ -26,9 +27,12 @@ let GrassEater = require('./grasseater')
 let AllEater = require('./allEater')
 let Predator = require('./predator')
 let Bomb = require('./bomb');
+let Walker = require('./walker')
+
+
 
 function createMatrix() {
-   function generateMatrix(matLen, gr, grEat, allEat, predator, bomb) {
+   function generateMatrix(matLen, gr, grEat, allEat, predator, bomb, walker) {
       for (let i = 0; i < matLen; i++) {
          matrix.push([]);
          for (let j = 0; j < matLen; j++) {
@@ -73,11 +77,18 @@ function createMatrix() {
             matrix[y][x] = 5;
          }
       }
+      for (let i = 0; i < walker; i++) {
+         let x = Math.floor(Math.random() * matLen);
+         let y = Math.floor(Math.random() * matLen)
+         if (matrix[y][x] == 0) {
+            matrix[y][x] = 6;
+         }
+      }
       return matrix;
 
    }
 
-   generateMatrix(40, 930, 50, 90, 90, 15);
+   generateMatrix(30, 90, 20, 10, 20, 5, 30);
 
 
    for (let y = 0; y < matrix.length; y++) {
@@ -102,7 +113,10 @@ function createMatrix() {
             let bomb = new Bomb(x, y);
             bombArr.push(bomb);
          }
-
+         else if (matrix[y][x] == 6) {
+            let walker = new Walker(x, y);
+            walkerArr.push(walker);
+         }
       }
    }
 }
@@ -113,28 +127,31 @@ function playGame() {
       let counter = 0
       counter++
       grassArr[i].mul();
-  }
-
-  for (let i = 0; i < grassEaterArr.length; i++) {
+   }
+   
+   for (let i = 0; i < grassEaterArr.length; i++) {
       grassEaterArr[i].eat();
-  }
-  for (let i = 0; i < allEaterArr.length; i++) {
+   }
+   for (let i = 0; i < allEaterArr.length; i++) {
       allEaterArr[i].eat();
-  }
-  for (let i = 0; i < predatorArr.length; i++) {
+   }
+   for (let i = 0; i < predatorArr.length; i++) {
       predatorArr[i].eat();
-  }
-  for (let i = 0; i < bombArr.length; i++) {
+   }
+   for (let i = 0; i < bombArr.length; i++) {
       bombArr[i].explode();
-  }
-
+   }
+   for (let i = 0; i < walkerArr.length; i++) {
+      walkerArr[i].move();
+   }
   
   let characterNumber = {
      grassNum: grassArr.length,
      grassEaterNum: grassEaterArr.length,
      allEaterNum: allEaterArr.length,
      predatorNum: predatorArr.length,
-     bombNum: bombArr.length
+     bombNum: bombArr.length,
+     walkerNum: walkerArr.length
    }
    io.emit('statistic', characterNumber)
    io.emit('matrix', matrix)

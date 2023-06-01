@@ -2,7 +2,7 @@ let socket = io();
 let side = 50;
 
 function setup() {
-    createCanvas(side * 40 , side * 40);
+    createCanvas(side * 30 , side * 30);
     background("grey")
 }
 let colors = {
@@ -10,7 +10,8 @@ let colors = {
     yellow: "yellow",
     red: "red",
     blue: "blue",
-    black: "black"
+    black: "black",
+    pink: "pink"
 }
 
 
@@ -21,6 +22,7 @@ function changeColor(){
         colors.red = "#fc2803";
         colors.blue = "#03e7fc";
         colors.black = "#3a3a4a";
+        colors.pink = "#aa31eb";
     }
     else{
         colors.green = "green";
@@ -28,6 +30,7 @@ function changeColor(){
         colors.red = "red";
         colors.blue = "blue";
         colors.black = "black";
+        colors.pink = "pink";
     }
     console.log("weather changed");
 }
@@ -55,6 +58,9 @@ function drawMatrix(matrix) {
             else if (matrix[y][x] == 5) {
                 fill(colors.black);
             }
+            else if (matrix[y][x] == 6) {
+                fill(colors.pink);
+            }
             else {
                 fill('white')
             }
@@ -73,7 +79,7 @@ let pGrassEater = document.getElementById("grassEater")
 let pAllEater = document.getElementById("allEater")
 let pPredator = document.getElementById("predator")
 let pBomb = document.getElementById("bomb")
-
+let pWalker = document.getElementById("walker")
 
 socket.on('statistic', function(characterNumber){
     pGrass.innerText = "number of grass: " + characterNumber.grassNum
@@ -81,6 +87,7 @@ socket.on('statistic', function(characterNumber){
     pAllEater.innerText = "number of alleater: " + characterNumber.allEaterNum
     pPredator.innerText = "number of predator: " + characterNumber.predatorNum
     pBomb.innerText = "number of bombs: " + characterNumber.bombNum
+    pWalker.innerText = "number of Walkers: " + characterNumber.walkerNum
 })
 
 
